@@ -1,0 +1,39 @@
+服务发现：
+1、erueka属于客户端发现，负载均衡是软负载，客户端会向服务器（eureka服务器）拉取已注册的可用服务信息，根据负载均衡策略返回可以用信息。整个过程都是在客户端完成的并不需要服务端的参与。
+2、SpringCloud中客户端负载均衡就是Ribbon组件，基于Netflix Ribbon实现，通过SpringCloud的封装，可用轻松的面向服务的rest模板请求，自动转换成客户端服务调用。
+3、SpringCloud在结合Ribbon的负载均衡实现中，增加了http client和okhttp两种请求端实现方式。默认使用了Ribbon对euraka？？发现的负载均衡client。
+
+4、添加@LoadBnce注解Ribbon会通过LoadBlance自动基于轮询的规则（轮询、自动链接、hash）等去链接目标服务，从而很容易使用Ribbon使用自定义的负载均衡算法。
+   Ribbon实现负载均衡有三点：
+   服务发现：发现依赖服务的列表。依据服务的名字，把该服务下所有实例的名字都找出来。
+   服务选择规则：依据规则策略如何从多个服务中选择一个有效的服务。
+   服务监听：检测失效的服务，做到高效剔除。
+
+   主要组件：ServerList   IRule  ServerListFilter
+        逻辑：通过ServerList获取所有的可用列表，然后通过ServerListFilter过滤掉一部分地址，剩下的地址中，使用IRule规则选择一个实例作为最终目标结果。
+
+Feign的使用：
+    1、pom中添加依赖
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-feign</artifactId>
+        <version>1.4.7.RELEASE</version>
+    </dependency>
+    2、项目的启动主类中加入注解
+    @EnableFeignClients //添加此注解
+    public class OrderApplication {
+        public static void main(String[] args) {
+            SpringApplication.run(OrderApplication.class, args);
+        }
+    }
+    3、声明调用哪个类的哪些方法，如下，调用product应用（注册到eureka中的应用）的映射为@GetMapping("/msg")的方法，此类中的productMsg()方法与被调用应用中的方法名称可以不一致，只要GetMapping中的关键字相同即可。
+    @FeignClient(name = "product")
+    public interface ProductClient {
+        @GetMapping("/msg")
+        String productMsg();
+    }
+
+    Feign是一个声明式的Rest客户端，伪RPC；采用接口加注解的方式（如上面第2点可以看出服务启动时需要开启注解、第3点调用时定义为interface和注解）；
+
+    2019-10-09
+    Feign是什么？

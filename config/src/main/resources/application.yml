@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: config
+  profiles:
+    active: git #subversion
+  cloud:
+    config:
+      server:
+        git:
+#          uri: https://github.com/mr-3yanpier/fkspringcloud.git
+#          username: lxfeng1163@163.com
+#          password: Ab13245678
+#          basedir: d:\\ideaspace\fkspringboot\config\testconfigfiles
+
+#          253056595@qq.com
+#          5$Mr.3YanPier
+
+          uri: https://gitee.com/michaelliu_1102/fkspringboot-config-repo.git
+          username: 253056595@qq.com
+          password: 3x5Q2J1
+          basedir: d:\\ideaspace\fkspringboot\config\testconfigfiles
+
+#        svn:
+#          uri: svn://192.168.0.139/repo/cloudup/jenkinsdeploy/testfk/config
+#          password: liuxiangfeng
+#          username: liu@xiangfeng
+#          default-label: config
+server:
+  port: 8085
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.0.182:8763/eureka
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*" #暴露所有端点 默认是info,health

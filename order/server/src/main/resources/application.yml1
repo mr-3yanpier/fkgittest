@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: order
+#datasource:
+      #      ##    url: jdbc:mysql://127.0.0.1:3306/springboot?characterEncoding=utf-8&useSSL=false&serverTimezone=GMT-8
+      #      ##    username: root
+      #      ##    password: 12345678
+      #      ##eureka:
+      #      ##  client:
+    #    ##    service-url:
+    #    ##      defaultZone: http://192.168.0.161:8761/eureka/
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CLIENT
+      profile: dev

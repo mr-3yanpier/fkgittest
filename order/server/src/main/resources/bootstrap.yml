@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: order
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG
+      profile: test
+    stream:
+      bindings:
+        fkStreamMessage: #这个名字是在发送端接口定义中定义的关键字
+          group: order   #这个order由自己根据业务定义
+          content-type: application/json #指定数据类型为json格式。在rabbitMQ中可以看到json格式的对象
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.0.161:8761/eureka
